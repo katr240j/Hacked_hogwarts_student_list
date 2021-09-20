@@ -8,6 +8,27 @@
     <title>Hogwarts Student List</title>
 </head>
 <body>
+    <header>
+        <img class="hogwarts" src="images/hogwarts.png" alt="hogwarts crest">
+        <h1>Hogwarts student list</h1>
+        <div id="navigator">
+            <div class="filtering">
+                <p>Filter by:</p>
+                <button class="filter" data-action="filter" data-filter="all">All</button>
+                <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+                <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+                <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
+                <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+            </div>
+            <div class="sorting">
+                <p>Sort by:</p>
+                <button class="filter" data-action="sort" data-sort-direction="asc" data-sort="firstName">Firstname</button>
+                <button class="filter" data-action="sort" data-sort-direction="asc" data-sort="lastName">Lastname</button>
+                <button class="filter" data-action="sort" data-sort-direction="asc" data-sort="house">House</button>
+            </div>
+         </header>
+         <section id="students"></section>
+         
     <template id="student">
         <article class="student_info">
             <div id="student_text">

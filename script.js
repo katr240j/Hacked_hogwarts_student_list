@@ -16,10 +16,24 @@ let Student = {
   image: "",
 };
 
+// Global variables for filtering, sorting and sorting direction
+const settings = {
+  filter: "all",
+  sortBy: "firstName",
+  sortDir: "asc",
+};
+
 //load json
 function start() {
   console.log("DOM loaded");
   loadJSON();
+  addEventListeners();
+}
+
+function addEventListeners() {
+  document.querySelectorAll("[data-action='filter']").forEach((button) => {
+    button.addEventListener("click", selectFilter);
+  });
 }
 
 async function loadJSON() {
@@ -127,4 +141,139 @@ function getHouse(house) {
   house = house.trim();
   house = house.substring(0, 1).toUpperCase() + house.substring(1).toLowerCase();
   return house;
+}
+
+// Filtering
+function selectFilter(event) {
+  const filter = event.target.dataset.filter;
+  setFilter(filter);
+}
+
+function setFilter(filter) {
+  settings.filterBy = filter;
+  buildList();
+}
+
+function filterList(filteredList) {
+  if (settings.filterBy === "gryffindor") {
+    filteredList = allStudents.filter(isGryffindor);
+  } else if (settings.filterBy === "hufflepuff") {
+    filteredList = allStudents.filter(isHufflepuff);
+  } else if (settings.filterBy === "ravenclaw") {
+    filteredList = allStudents.filter(isRavenclaw);
+  } else if (settings.filterBy === "slytherin") {
+    filteredList = allStudents.filter(isSlytherin);
+  } else if (settings.filterBy === "prefect") {
+    filteredList = allStudents.filter(isPrefect);
+  } else if (settings.filterBy === "squad") {
+    filteredList = allStudents.filter(isSquad);
+  } else if (settings.filterBy === "expelled") {
+    filteredList = allStudents.filter(isExpelled);
+  }
+  return filteredList;
+}
+
+function isGryffindor(student) {
+  return student.house === "Gryffindor";
+}
+
+function isHufflepuff(student) {
+  return student.house === "Hufflepuff";
+}
+
+function isRavenclaw(student) {
+  return student.house === "Ravenclaw";
+}
+
+function isSlytherin(student) {
+  return student.house === "Slytherin";
+}
+
+function isPrefect(student) {
+  return student.prefect === true;
+}
+
+function isSquad(student) {
+  return student.squad === true;
+}
+
+function isExpelled(student) {
+  return student.expelled === true;
+}
+
+// Sorting
+
+function selectSorting(event) {
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
+
+  //find "old" sotrBy element and remove .sortBy (byclass)
+  const oldElement = document.querySelector(`[data-sort='${settings.sortBy}'`);
+  oldElement.classList.remove("sort_by");
+
+  //indicate active sort
+  event.target.classList.add("sort_by");
+
+  //Toggle the direction
+  if (sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
+  } else {
+    event.target.dataset.sortDirection = "asc";
+  }
+  setSort(sortBy, sortDir);
+}
+
+function setSort(sortBy, sortDir) {
+  settings.sortBy = sortBy;
+  settings.sortDir = sortDir;
+  buildList();
+}
+
+function sortList(sortedList) {
+  let direction = 1;
+  if (settings.sortDir === "desc") {
+    direction = -1;
+  } else {
+    direction = 1;
+  }
+  sortedList = sortedList.sort(sortByProperty);
+
+  function sortByProperty(nameA, nameB) {
+    if (nameA[settings.sortBy] < nameB[settings.sortBy]) {
+      return -1 * direction;
+    } else {
+      return 1 * direction;
+    }
+  }
+  return sortedList;
+}
+
+function buildList() {
+  const currentList = filterList(allStudents);
+  const sortedList = sortList(currentList);
+  displayList(sortedList);
+}
+
+// Displaying the list
+function displayList(students) {
+  // Clear the list
+  document.querySelector("#students").innerHTML = "";
+
+  // Build a new list
+  students.forEach(displayStudent);
+
+  function displayStudent(student) {
+    // Create clone
+    const clone = document.querySelector("template#student").content.cloneNode(true);
+
+    //Set clone data
+    clone.querySelector("[data-field=image]").src = student.image;
+    clone.querySelector("[data-field=firstname]").textContent = student.firstName;
+    clone.querySelector("[data-field=lastname]").textContent = student.lastName;
+    clone.querySelector("[data-field=house]").textContent = student.house;
+
+    //Make clickable to see more details
+    clone.querySelector("#studenttext").addEventListener("click", () => showDetails(student));
+  }
+  buildList();
 }
