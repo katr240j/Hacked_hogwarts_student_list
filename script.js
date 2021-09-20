@@ -11,6 +11,9 @@ let Student = {
   firstName: "",
   lastName: "",
   middleName: "",
+  nickName: "",
+  house: "",
+  image: "",
 };
 
 //load json
@@ -83,4 +86,45 @@ function getMidddelName(fullname) {
     middleName = "";
   }
   return middleName;
+}
+
+// Get images
+function getImage(firstName, lastName) {
+  let image;
+  // If lastname is patil,(there are two patil) then use both lastname and firstname
+  //to get the image
+  if (lastName === "Patil") {
+    image = `./images/${lastName.toLowerCase()}_${firstName.toLowerCase()}.png`;
+  } else if (firstName === "Leanne") {
+    // else if the last name  is Leanne whos picture is missin
+    // show no image avaliable picture
+    image = "images/No_image_avalible.png";
+  } else if (firstName === "Justin") {
+    // If lastname is Justin, split the lastname and use the second lastname
+    lastName = lastName.split("-");
+    image = `./images/${lastName[1].toLowerCase()}_${firstName.substring(0, 1).toLowerCase()}.png`;
+  } else {
+    image = `./images/${lastName.toLowerCase()}_${firstName.substring(0, 1).toLowerCase()}.png`;
+  }
+  return image;
+}
+
+// Get nickname
+function getNickName(fullname) {
+  let nickName = fullname.trim();
+  nickName = nickName.split(" ");
+  // if fullname contains "", make second name the nickname
+  if (fullname.includes(' "')) {
+    nickName = nickName[1];
+  } else {
+    nickName = "";
+  }
+  return nickName;
+}
+
+// Get house
+function getHouse(house) {
+  house = house.trim();
+  house = house.substring(0, 1).toUpperCase() + house.substring(1).toLowerCase();
+  return house;
 }
