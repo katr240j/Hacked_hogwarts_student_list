@@ -4,10 +4,12 @@ window.addEventListener("DOMContentLoaded", start);
 //array for all students
 let allStudents = [];
 
-const student = {
+const Student = {
   firstName: "",
+  middleName: "",
   lastName: "",
   image: "",
+  house: "",
 };
 
 const settings = {
@@ -26,36 +28,120 @@ function start() {
 
 function registerButtons() {
   console.log("registered buttons");
-  document.querySelectorAll("[data-action='filter']").forEach((button) => button.addEventListener("click", selectFilter));
+  document.querySelectorAll("[data-action='filter']").forEach((button) => {
+    button.addEventListener("click", selectFilter);
+  });
 
-  document.querySelectorAll("[data-action='sort']").forEach((button) => button.addEventListener("click", selectSort));
+  document.querySelectorAll("[data-action='sort']").forEach((button) => {
+    button.addEventListener("click", selectSort);
+  });
 }
+
 async function loadJSON() {
-  console.log("laod json");
-  const respons = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
-  const jsonData = await respons.json();
+  console.log("load json");
+  const response = await fetch("students.json");
+  const jsonData = await response.json();
   prepareObjects(jsonData);
 }
+//prepare objects
+// function prepareObjects(jsonData) {
+//   console.log("JSONDATA", jsonData);
+//   allStudents = jsonData.map(prepareObject);
 
+//   //fixed so we filter and sort on the first load
+//   buildList();
+// }
+//prepare objects
 function prepareObjects(jsonData) {
-  console.log("JSONDATA", jsonData);
-  allStudents = jsonData.map(prepareObject);
+  jsonData.forEach((elm) => {
+    const student = Object.create(Student);
 
+    student.firstName = getFirstName(elm.fullname);
+    student.lastName = getLastName(elm.fullname);
+    student.middleName = getMidddelName(elm.fullname);
+    student.image = getImage(student.firstName, student.lastName);
+    student.house = getHouse(elm.house);
+  });
+  allStudents.push(student);
   //fixed so we filter and sort on the first load
   buildList();
 }
 
-function prepareObject(jsonObject) {
-  const student = Object.create(Student);
-
-  const texts = jsonObject.fullname.split(" ");
-  student.firstName = getFirstName(element.fullname);
-  student.lastName = getLastName(element.fullname);
-  student.middleName = getMidddelName(element.fullname);
-
-  return student;
+// get firstName from fullName
+function getFirstName(fullname) {
+  console.log("get first name");
+  let firstName = fullname.trim();
+  // If fullname includes a " " (space),
+  //firstname is what comes before that first space
+  if (fullname.includes(" ")) {
+    firstName = firstName.substring(0, firstName.indexOf(" "));
+    firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
+  } else {
+    // if fullname has  only one name - no space
+    firstName = firstName;
+  }
+  return firstName;
 }
 
+// Get middlename from fullname
+function getMidddelName(fullname) {
+  let middleName = fullname.trim();
+  middleName = middleName.split(" ");
+  // If fullname includes " " (space), ignore that name and make middlename none
+  if (fullname.includes(' "')) {
+    middleName = "";
+  } else if (middleName.length > 2) {
+    // if fullname is longer than 2, make second name middlename
+    middleName = middleName[1];
+    middleName = middleName.substring(0, 1).toUpperCase() + middleName.substring(1).toLowerCase();
+  } else {
+    middleName = "";
+  }
+  return middleName;
+}
+
+// Get lastname from fullname
+function getLastName(fullname) {
+  let lastName = fullname.trim();
+  lastName = lastName.substring(lastName.lastIndexOf(" ") + 1);
+  lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
+  // If fullname contains (-), make first character uppercase
+  if (fullname.includes("-")) {
+    let lastNames = lastName.split("-");
+    lastNames[1] = lastNames[1].substring(0, 1).toUpperCase() + lastNames[1].substring(1).toLowerCase();
+    lastName = lastNames.join("-");
+  }
+  return lastName;
+}
+
+// Get image
+function getImage(firstName, lastName) {
+  let image;
+  // If the lastname is patil
+  //use both lastname and firstname to get the image
+  if (lastName === "Patil") {
+    image = `./images/${lastName.toLowerCase()}_${firstName.toLowerCase()}.png`;
+  } else if (firstName === "Leanne") {
+    // If the lastname is Leanne,
+    //show no image avalible from images
+    image = "images/No_image_avalible.png";
+  } else if (firstName === "Justin") {
+    // If the lastname is Justin
+    //split the lastname and use second the lastname
+    lastName = lastName.split("-");
+    image = `./images/${lastName[1].toLowerCase()}_${firstName.substring(0, 1).toLowerCase()}.png`;
+  } else {
+    image = `./images/${lastName.toLowerCase()}_${firstName.substring(0, 1).toLowerCase()}.png`;
+  }
+  return image;
+}
+
+// Get house
+function getHouse(house) {
+  house = house.trim();
+  house = house.substring(0, 1).toUpperCase() + house.substring(1).toLowerCase();
+  return house;
+}
 function selectFilter(event) {
   console.log("select filter");
   const filter = event.target.dataset.filter;
@@ -81,13 +167,23 @@ function filterList(filteredList) {
   return filteredList;
 }
 
-function isCat(animal) {
-  return animal.type === "cat";
-}
-function isDog(animal) {
-  return animal.type === "dog";
+function isGryffindor(student) {
+  return student.house === "Gryffindor";
 }
 
+function isHufflepuff(student) {
+  return student.house === "Hufflepuff";
+}
+
+function isRavenclaw(student) {
+  return student.house === "Ravenclaw";
+}
+
+function isSlytherin(student) {
+  return student.house === "Slytherin";
+}
+
+//sorts
 function selectSort(event) {
   console.log("select sort");
   const sortBy = event.target.dataset.sort;
@@ -96,6 +192,7 @@ function selectSort(event) {
   //find "old" sotrBy element and remove .sortBy
   const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
   oldElement.classList.remove("sortby");
+
   //indicate active sort
   event.target.classList.add("sortby");
 
@@ -152,9 +249,9 @@ function displayList(students) {
   document.querySelector("#list tbody").innerHTML = "";
 
   // build a new list
-  animals.forEach(displayAnimal);
+  students.forEach(displayStudent);
 }
-function displayAnimal(student) {
+function displayStudent(student) {
   // create clone
   const clone = document.querySelector("template#student").content.cloneNode(true);
 
@@ -290,5 +387,5 @@ function tryToMakeAWinner(selectedAnimal) {
   function makeWinner(animal) {
     animal.winner = true;
   }
-}
+
  */
