@@ -39,18 +39,11 @@ function registerButtons() {
 
 async function loadJSON() {
   console.log("load json");
-  const response = await fetch("students.json");
+  const response = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
   const jsonData = await response.json();
   prepareObjects(jsonData);
 }
-//prepare objects
-// function prepareObjects(jsonData) {
-//   console.log("JSONDATA", jsonData);
-//   allStudents = jsonData.map(prepareObject);
 
-//   //fixed so we filter and sort on the first load
-//   buildList();
-// }
 //prepare objects
 function prepareObjects(jsonData) {
   jsonData.forEach((elm) => {
@@ -69,7 +62,6 @@ function prepareObjects(jsonData) {
 
 // get firstName from fullName
 function getFirstName(fullname) {
-  console.log("get first name");
   let firstName = fullname.trim();
   // If fullname includes a " " (space),
   //firstname is what comes before that first space
@@ -116,6 +108,7 @@ function getLastName(fullname) {
 
 // Get image
 function getImage(firstName, lastName) {
+  console.log("get image");
   let image;
   // If the lastname is patil
   //use both lastname and firstname to get the image
@@ -124,7 +117,7 @@ function getImage(firstName, lastName) {
   } else if (firstName === "Leanne") {
     // If the lastname is Leanne,
     //show no image avalible from images
-    image = "images/No_image_avalible.png";
+    image = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
   } else if (firstName === "Justin") {
     // If the lastname is Justin
     //split the lastname and use second the lastname
@@ -245,56 +238,58 @@ function buildList() {
 }
 
 function displayList(students) {
+  console.log("display list");
   // clear the list
-  document.querySelector("#list tbody").innerHTML = "";
+  document.querySelector("#students").innerHTML = "";
 
   // build a new list
   students.forEach(displayStudent);
 }
 function displayStudent(student) {
+  console.log("display students");
   // create clone
   const clone = document.querySelector("template#student").content.cloneNode(true);
 
   //Set clone data
-  clone.querySelector("[data-field=image]").src = student.image;
+  //clone.querySelector("[data-field=image]").src = student.image;
   clone.querySelector("[data-field=firstname]").textContent = student.firstName;
   clone.querySelector("[data-field=lastname]").textContent = student.lastName;
   clone.querySelector("[data-field=house]").textContent = student.house;
-
-  //   if (animal.star === true) {
-  //     clone.querySelector("[data-field=star]").textContent = "⭐";
-  //   } else {
-  //     clone.querySelector("[data-field=star]").textContent = "☆";
-  //   }
-
-  //   clone.querySelector("[data-field=star]").addEventListener("click", clickStar);
-
-  //   function clickStar() {
-  //     if (animal.star === true) {
-  //       animal.star = false;
-  //     } else {
-  //       animal.star = true;
-  //     }
-  //     buildList();
-  //   }
-
-  //   //winners
-  //   clone.querySelector("[data-field=winner]").dataset.winner = animal.winner;
-  //   clone.querySelector("[data-field=winner]").addEventListener("click", clickWinner);
-
-  //   function clickWinner() {
-  //     console.log("clickWinner", animal.winner);
-  //     if (animal.winner === true) {
-  //       animal.winner = false;
-  //     } else {
-  //       tryToMakeAWinner(animal);
-  //     }
-  //     buildList();
-  //   }
-
   // append clone to list
-  document.querySelector("#list tbody").appendChild(clone);
+  document.querySelector("#students").appendChild(clone);
 }
+
+//   if (animal.star === true) {
+//     clone.querySelector("[data-field=star]").textContent = "⭐";
+//   } else {
+//     clone.querySelector("[data-field=star]").textContent = "☆";
+//   }
+
+//   clone.querySelector("[data-field=star]").addEventListener("click", clickStar);
+
+//   function clickStar() {
+//     if (animal.star === true) {
+//       animal.star = false;
+//     } else {
+//       animal.star = true;
+//     }
+//     buildList();
+//   }
+
+//   //winners
+//   clone.querySelector("[data-field=winner]").dataset.winner = animal.winner;
+//   clone.querySelector("[data-field=winner]").addEventListener("click", clickWinner);
+
+//   function clickWinner() {
+//     console.log("clickWinner", animal.winner);
+//     if (animal.winner === true) {
+//       animal.winner = false;
+//     } else {
+//       tryToMakeAWinner(animal);
+//     }
+//     buildList();
+//   }
+
 /* 
 function tryToMakeAWinner(selectedAnimal) {
   console.log("try to make a winner", selectedAnimal);
