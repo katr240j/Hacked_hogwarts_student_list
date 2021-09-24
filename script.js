@@ -34,6 +34,7 @@ function start() {
   loadJSON();
   //add event-listeners to filter and sort buttons
   registerButtons();
+  timeToHackTheSystem();
 }
 
 function registerButtons() {
@@ -204,6 +205,8 @@ function filterList(filteredList) {
     filteredList = filterAllStudents.filter(isRavenclaw);
   } else if (settings.filterBy === "slytherin") {
     filteredList = filterAllStudents.filter(isSlytherin);
+  } else if (settings.filterBy === "expelled") {
+    filteredList = allStudents.filter(isExpelled);
   } else if (settings.filterBy === "prefect") {
     filteredList = filterAllStudents.filter(isPrefect);
   } else if (settings.filterBy === "squad") {
@@ -330,16 +333,20 @@ function displayList(students) {
   // build a new list
   students.forEach(displayStudent);
 
-  // Show number of students
-  const numberStudents = students.length;
+  // Show number of currentlystudents
+  const numberStudents = allStudents.length;
   document.querySelector(".number_of_students").textContent = ` ${numberStudents}`;
+
+  // Show number of currentlystudents
+  const numberCurrent = students.length;
+  document.querySelector(".number_of_current_students").textContent = ` ${numberCurrent}`;
 
   // show number of expelled students
   const numberExpelled = allStudents.filter((student) => student.expelled === true).length;
   document.querySelector(".number_expelled").textContent = ` ${numberExpelled}`;
 
   //show number of not expelled students
-  let numberOfNotExpelled = 34 - numberExpelled;
+  let numberOfNotExpelled = numberStudents - numberExpelled;
   document.querySelector(".number_not_expelled").textContent = ` ${numberOfNotExpelled}`;
 
   //number of each house
@@ -427,7 +434,12 @@ function displayStudent(student) {
 
   // // Toggle expell true or false on click
   function clickExpell() {
-    student.expelled = !student.expelled;
+    if (student.firstName === "Katrín") {
+      student.expelled = false;
+      cantExpell();
+    } else {
+      student.expelled = !student.expelled;
+    }
     buildList();
   }
 
@@ -577,10 +589,19 @@ function closeDetails() {
 
 // Hacking the system
 
+function timeToHackTheSystem() {
+  setTimeout(() => {
+    hackTheSystem();
+    //10min = 600000
+    //1min = 60000
+  }, 60000);
+}
 function hackTheSystem() {
   hackingTheSystem = true;
   document.querySelector(".hogwarts_logo").removeEventListener("click", hackTheSystem);
   console.log("The system is hacked", hackingTheSystem);
+
+  hackingTheStyling();
 
   injectMyself();
 
@@ -589,12 +610,77 @@ function hackTheSystem() {
   hackedSquad();
 }
 
+function hackingTheStyling() {
+  //changing the style of the header
+  document.querySelector("header").classList.add("hacking_background_header");
+  //changing the style of the page
+  document.querySelector("#page").classList.add("hacking_background_page");
+  //changing the logo
+  document.querySelector(".hogwarts_logo").src = "styling_img/hogwarts_logo_yellow.png";
+  //making the list purple as well
+  document.querySelector(".header_back").style.opacity = 0.6;
+  document.querySelector(".background_right").style.opacity = 0.6;
+  //text color to yellow
+  document.querySelector("#container").classList.add("hacking");
+  document.querySelector(".title").style.color = "#ffe600";
+
+  //filters
+  document.querySelector(".filters p").style.color = "#ffe600";
+  document.querySelector(".sort p").style.color = "#ffe600";
+  //search
+  document.querySelector("#search_btn").style.color = "#ffe600";
+  document.querySelector("#search_btn").style.border = "1px solid #ffe600";
+  document.querySelector("input").style.border = "1px solid #ffe600";
+  //filter buttons
+  document.querySelector("[data-filter='gryffindor']").style.color = "#ffe600";
+  document.querySelector("[data-filter='hufflepuff']").style.color = "#ffe600";
+  document.querySelector("[data-filter='ravenclaw']").style.color = "#ffe600";
+  document.querySelector("[data-filter='slytherin']").style.color = "#ffe600";
+  document.querySelector("[data-filter='squad']").style.color = "#ffe600";
+  document.querySelector("[data-filter='expelled']").style.color = "#ffe600";
+  document.querySelector("[data-filter='prefect']").style.color = "#ffe600";
+  document.querySelector("[data-filter='Pure_blood']").style.color = "#ffe600";
+  document.querySelector("[data-filter='Half_blood']").style.color = "#ffe600";
+  document.querySelector("[data-filter='Muggle_born']").style.color = "#ffe600";
+  document.querySelector("[data-filter='all']").style.color = "#ffe600";
+
+  document.querySelector("[data-filter='gryffindor']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='hufflepuff']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='ravenclaw']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='slytherin']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='squad']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='expelled']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='prefect']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='Pure_blood']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='Half_blood']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='Muggle_born']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-filter='all']").style.border = "1px solid #ffe600";
+  //sort buttons
+  document.querySelector("[data-sort='firstName']").style.color = "#ffe600";
+  document.querySelector("[data-sort='firstName']").style.border = "1px solid #ffe600";
+  document.querySelector("[data-sort='lastName']").style.color = "#ffe600";
+  document.querySelector("[data-sort='lastName']").style.border = "1px solid #ffe600";
+
+  //add glitch
+  addGlitch();
+}
+function addGlitch() {
+  document.querySelector("#glitchbox").classList.remove("hide");
+  setTimeout(() => {
+    stopGlitch();
+  }, 3000);
+}
+
+function stopGlitch() {
+  document.querySelector("#glitchbox").classList.add("hide");
+}
+
 function injectMyself() {
   console.log("inject Myself");
   const myInfo = {
     firstName: "Katrín",
-    lastName: "María",
-    middleName: "Magnúsdóttir",
+    lastName: "Magnúsdóttir",
+    middleName: "María",
     nickName: "Dobby",
     imageName: "./img/dobby.png",
     house: "Gryffindor",
@@ -605,6 +691,18 @@ function injectMyself() {
   };
   allStudents.push(myInfo);
   buildList();
+}
+
+function cantExpell() {
+  // Show modal
+  document.querySelector("#no_expelled").classList.remove("hide");
+  document.querySelector("#no_expelled .close_dialog").addEventListener("click", closeDialog);
+
+  // Close modal
+  function closeDialog() {
+    document.querySelector("#no_expelled").classList.add("hide");
+    document.querySelector("#no_expelled .close_dialog").removeEventListener("click", closeDialog);
+  }
 }
 
 function hackedBloodStatus() {
@@ -626,17 +724,32 @@ function hackedBloodStatus() {
     }
   });
 }
-
+//the student needed to be in the squad before the hacking started, dosent get kicked out if put in after the hacking started
 function hackedSquad() {
   console.log("Limited time on squad");
   allStudents.forEach((student) => {
     if (student.squad === true) {
       console.log("student is squad");
       setTimeout(() => {
+        console.log("time out");
         student.squad = false;
+        kickedOutOfSquad();
         buildList();
         //10 sec
       }, 10000);
     }
   });
+}
+
+function kickedOutOfSquad() {
+  console.log("kicked out");
+  // Show modal
+  document.querySelector("#kicked_out").classList.remove("hide");
+  document.querySelector("#kicked_out .close_dialog").addEventListener("click", closeDialog);
+
+  // Close modal
+  function closeDialog() {
+    document.querySelector("#kicked_out").classList.add("hide");
+    document.querySelector("#kicked_out .close_dialog").removeEventListener("click", closeDialog);
+  }
 }

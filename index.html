@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Charm&family=Cormorant+Upright:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+  
     <header>
         <img class="hogwarts_logo"src="styling_img/hogwarts_logo.png" alt="">
         <img class="header_back"src="styling_img/header_back.png" alt="">
@@ -19,11 +20,11 @@
 
         <div id="container">
             <div class="box" >
-                <h2>34</h2>
+                <h2 class="number_of_students"></h2>
                 <p>Students</p>
             </div>
             <div class="box" >
-                <h2 class="number_of_students"></h2>
+                <h2 class="number_of_current_students"></h2>
                 <p>Currently Displayed Students</p>
             </div>
             <div class="box" >
@@ -52,7 +53,7 @@
             </div>
                 </div>
     </header>
-<div id="page">
+<div id="page" class="page">
     <div id="left">  
         <div id="nav">  
         
@@ -148,12 +149,45 @@
           <h2>Nope, Sorry! Only pure Blood or Slytherin students can be a part of the inquisitorial squad.</h2>
         </div>
       </div>
+      <div id="kicked_out" class="modal hide">
+        <div class="dialog">
+          <button class="close_dialog">X</button>
+          <h1>Breaking News!</h1>
+          <h2>Student did not behave and got kicked out of the Inquisitorial Squad.</h2>
+        </div>
+      </div>
+
+      <div id="no_expelled" class="modal hide">
+        <div class="dialog">
+          <button class="close_dialog">X</button>
+          <h2>This student can not be expelled.</h2>
+        </div>
+      </div>
+
+
       <div id="blured"></div>
    
 
 </div>
 </div>
-
+<div id="glitchbox" class=" glitch hide">
+    <div class="black"></div>
+    <div class="white"></div>
+    <div class="black"></div>
+    <div class="white"></div>
+    <div class="black"></div>
+    <div class="white"></div>
+    <div class="black"></div>
+    <div class="white"></div>
+    <div class="black"></div>
+    <div class="white"></div>
+    <div class="black"></div>
+    <div class="white"></div>
+    <div class="black"></div>
+    <div class="white"></div>
+    <div class="black"></div>
+    <div class="white"></div>
+        </div>
   <script src="script.js"></script>  
 </body>
 </html>

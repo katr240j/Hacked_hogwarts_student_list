@@ -20,72 +20,54 @@ h2,
 h3 {
   font-family: "Charm", cursive;
 }
+
 /* page setup */
-#page {
-  background: rgb(236, 227, 211);
-  background: linear-gradient(180deg, rgba(236, 227, 211, 1) 45%, rgba(236, 227, 211, 0) 100%);
+.page {
+  background-color: rgba(236, 227, 211, 1);
   z-index: -1;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
 }
-#left {
-  margin-top: 1rem;
-  position: fixed;
-  overflow: hidden;
-  z-index: 1;
-  grid-column-start: 1;
+.hacking_background_page {
+  background: linear-gradient(180deg, rgb(46 0 97) 2%, rgba(37, 5, 71, 0.5060399159663865) 100%);
 }
 
 #right {
-  z-index: 1;
-  margin-top: 12rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-  grid-column-start: 2;
+  margin-top: 2rem;
 }
 
 .background_right {
-  position: fixed;
-  z-index: -1;
-  left: 29rem;
-  width: 53rem;
+  display: none;
 }
 /* page setup finish */
 /* header */
 header {
-  background: rgb(236, 227, 211);
-  background: linear-gradient(180deg, rgba(236, 227, 211, 1) 55%, rgba(236, 227, 211, 0) 100%);
-  position: fixed;
+  /* background: linear-gradient(180deg, rgba(236, 227, 211, 1) 55%, rgba(236, 227, 211, 0) 100%); */
   z-index: 3;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  background-color: rgba(236, 227, 211, 1);
+}
+.hacking_background_header {
+  background-color: rgb(46 0 97);
+  /* background: linear-gradient(180deg, rgb(28 3 56) 95%, rgba(95, 6, 194, 0) 100%); */
 }
 .header_back {
-  width: 53rem;
-  position: absolute;
-  left: 29rem;
-  z-index: -1;
+  display: none;
 }
 
 .title {
-  margin-top: 3rem;
-  margin-left: 6rem;
+  margin-left: 2rem;
+  font-size: 2rem;
 }
 .hogwarts_logo {
-  width: 200px;
-  margin-left: 4rem;
+  width: 11rem;
+  margin-left: 6rem;
   padding-top: 1rem;
   cursor: pointer;
 }
 
 /* displaying numbers */
 #container {
-  margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr 1fr;
-  margin-right: 6rem;
 }
 
 .box {
@@ -191,12 +173,6 @@ button.filter {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 20px;
   text-align: center;
-  margin: 10rem;
-  margin-top: 2rem;
-  margin-left: 16rem;
-}
-#students img .imageName [data-field="imageName"] [src="./img/dobby.png"] {
-  opacity: 0.5;
 }
 
 .prefect {
@@ -307,7 +283,7 @@ button.filter {
   background: #da5a11;
   position: relative;
   color: #161517;
-  width: 19rem;
+  width: 23rem;
 }
 
 .remove_prefect_button {
@@ -432,3 +408,327 @@ button.filter {
 }
 
 /* Pop-up & details finish */
+/* hacking */
+.hacking h2,
+.hacking h3,
+.hacking p {
+  color: #ffe600;
+}
+
+.glitch {
+  display: grid;
+  gap: 2rem;
+  grid-template-rows: repeat(16, 1fr);
+  grid-template-columns: 1fr;
+  opacity: 0.5;
+  width: 100%;
+  background-color: rgba(68, 67, 67, 0.815);
+  position: fixed;
+  z-index: 10;
+  transition: 180ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.black {
+  background-color: black;
+  width: 100%;
+  height: 2rem;
+  opacity: 0.8;
+  animation: glitching_black 1.5s infinite;
+}
+@keyframes glitching_black {
+  10% {
+    box-shadow: 52px 30px 9px 2px rgb(0, 234, 255);
+
+    height: 0.2rem;
+  }
+  30% {
+    box-shadow: 52px 30px 9px 2px rgb(0, 255, 64);
+  }
+  50% {
+    box-shadow: 52px -6px 9px 31px rgba(255, 0, 0, 1);
+  }
+  80% {
+    box-shadow: -102px 60px -9px 2px rgb(255, 251, 0);
+
+    height: 1rem;
+  }
+  100% {
+    box-shadow: 52px 30px 9px 2px rgb(0, 234, 255);
+
+    height: 0.2rem;
+  }
+}
+.white {
+  background-color: white;
+  width: 100%;
+  height: 2rem;
+  opacity: 0.8;
+  animation: glitching_white 1.5s infinite;
+}
+
+@keyframes glitching_white {
+  5% {
+    box-shadow: 52px 30px 9px -2px rgb(238, 255, 0);
+  }
+  15% {
+    box-shadow: 52px 30px -9px 2px rgba(255, 0, 0, 1);
+  }
+  45% {
+    box-shadow: -52px 30px 9px 2px rgb(0, 234, 255);
+  }
+  55% {
+    box-shadow: 52px 30px 9px 2px rgb(238, 255, 0);
+  }
+  75% {
+    box-shadow: -92px 30px 9px 2px rgba(255, 0, 0, 1);
+  }
+  85% {
+    box-shadow: 52px -30px 9px 2px rgba(255, 0, 0, 1);
+  }
+  100% {
+    box-shadow: -108px -21px 9px 31px rgba(39, 0, 255, 1);
+  }
+}
+/* desktop */
+@media (min-width: 1400px) {
+  /* page setup */
+  .page {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+
+  #left {
+    margin-top: 1rem;
+    position: fixed;
+    overflow: hidden;
+    z-index: 1;
+    grid-column-start: 1;
+  }
+
+  #right {
+    z-index: 1;
+    margin-top: 12rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    grid-column-start: 2;
+  }
+
+  .background_right {
+    display: block;
+    position: fixed;
+    z-index: -1;
+    left: 29rem;
+    width: 53rem;
+  }
+  /* page setup finish */
+  /* header */
+  header {
+    background: linear-gradient(180deg, rgba(236, 227, 211, 1) 55%, rgba(236, 227, 211, 0) 100%);
+    position: fixed;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+  .hacking_background_header {
+    background: linear-gradient(180deg, rgb(28 3 56) 57%, rgba(95, 6, 194, 0) 100%);
+  }
+  .header_back {
+    display: block;
+    width: 53rem;
+    position: absolute;
+    left: 29rem;
+    z-index: -1;
+    top: 1rem;
+  }
+
+  .title {
+    margin-top: 3rem;
+    margin-left: 6rem;
+    font-size: 2rem;
+  }
+  .hogwarts_logo {
+    width: 10rem;
+    margin-left: 5rem;
+    padding-top: 1rem;
+    cursor: pointer;
+  }
+
+  /* displaying numbers */
+  #container {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr;
+    margin-right: 6rem;
+  }
+
+  .box {
+    background-color: transparent;
+    text-align: center;
+  }
+  .box h2 {
+    font-family: "Cormorant Upright", serif;
+    font-size: 2rem;
+  }
+  .box h3 {
+    font-family: "Cormorant Upright", serif;
+    font-size: 1rem;
+  }
+
+  /* header finish */
+
+  /* filters/sort (on the left side)*/
+
+  #nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    margin-left: 2rem;
+    gap: 2rem;
+  }
+
+  .filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 0.5em;
+    margin-top: 13rem;
+  }
+  button.filter {
+    width: 7rem;
+    height: 2.5rem;
+    cursor: pointer;
+    background-color: transparent;
+    color: #161517;
+    border: 1px solid #161517;
+    font-family: "Cormorant Upright", serif;
+    text-transform: uppercase;
+  }
+
+  .filters p {
+    grid-area: 1/1/2/3;
+    text-align: center;
+    background-color: transparent;
+    color: #161517;
+    font-family: "Cormorant Upright", serif;
+    font-size: 2rem;
+    width: 16.5rem;
+    height: 2.5rem;
+  }
+
+  .sorting_and_searching {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 1fr;
+    gap: 1em;
+  }
+  .sort {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1em;
+  }
+  .sort p {
+    grid-area: 1 / 1 / 2 / 3;
+    text-align: center;
+    background-color: transparent;
+    font-family: "Cormorant Upright", serif;
+    font-size: 2rem;
+    width: 16.5rem;
+    height: 2.5rem;
+  }
+
+  .sort .bysort[data-sort-direction="desc"]::after {
+    content: " ↓";
+  }
+  .sort .bysort[data-sort-direction="asc"]::after {
+    content: " ↑";
+  }
+
+  .search {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 1rem;
+  }
+
+  #search {
+    background-color: transparent;
+    border: 1px solid #161517;
+    padding: 10px;
+    height: 2rem;
+  }
+  /* filters/sort finish */
+  /* Students overview */
+  #students {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+    text-align: center;
+    margin: 10rem;
+    margin-top: 2rem;
+    margin-left: 16rem;
+  }
+
+  .prefect {
+    border: none;
+    background-image: url("./styling_img/prefect.png");
+    width: 50px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .prefect:hover {
+    opacity: 1;
+    filter: none;
+  }
+
+  .squad {
+    border: none;
+    background-image: url("./styling_img/squad.png");
+    width: 50px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .squad:hover {
+    opacity: 1;
+    filter: none;
+  }
+
+  .expell {
+    border: none;
+    background-image: url("./styling_img/expell.png");
+    width: 50px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .expell:hover {
+    opacity: 1;
+    filter: none;
+  }
+
+  .gray {
+    opacity: 0.6;
+    filter: grayscale(1);
+  }
+
+  /* Students overview finish */
+}
