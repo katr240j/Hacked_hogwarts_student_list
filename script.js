@@ -4,6 +4,9 @@ window.addEventListener("DOMContentLoaded", start);
 //array for all students
 let allStudents = [];
 
+//when injecting myself I need to make a global variable of the hole list of students including me
+let filterAllStudents = allStudents;
+
 let Student = {
   firstName: "",
   lastName: "",
@@ -22,6 +25,8 @@ const settings = {
   sortBy: "firstName",
   sortDir: "asc",
 };
+// Global variable for hacking the system
+let hackingTheSystem = false;
 
 function start() {
   console.log("ready");
@@ -41,6 +46,7 @@ function registerButtons() {
     button.addEventListener("click", selectSort);
   });
   document.querySelector("#search").addEventListener("input", searchStudent);
+  document.querySelector(".hogwarts_logo").addEventListener("click", hackTheSystem);
 }
 
 //loading json
@@ -164,15 +170,15 @@ function getNickName(fullname) {
 }
 // Get bloodstatus
 function getBloodStatus(lastName, bloodStatus) {
-  // if the last name is on the half-blood list
+  // if the last name is on the half Blood list
   if (bloodStatus.half.includes(lastName)) {
-    bloodStatus = "Half-blood";
-    //if the last name is on the pure-blood list
+    bloodStatus = "Half Blood";
+    //if the last name is on the pure Blood list
   } else if (bloodStatus.pure.includes(lastName)) {
-    bloodStatus = "Pure-blood";
+    bloodStatus = "Pure Blood";
     // if the last name is on both lists then it is muggle born
   } else {
-    bloodStatus = "Muggle-born";
+    bloodStatus = "Muggle Born";
   }
   return bloodStatus;
 }
@@ -193,34 +199,34 @@ function filterList(filteredList) {
   if (settings.filterBy === "gryffindor") {
     filteredList = allStudents.filter(isGryffindor);
   } else if (settings.filterBy === "hufflepuff") {
-    filteredList = allStudents.filter(isHufflepuff);
+    filteredList = filterAllStudents.filter(isHufflepuff);
   } else if (settings.filterBy === "ravenclaw") {
-    filteredList = allStudents.filter(isRavenclaw);
+    filteredList = filterAllStudents.filter(isRavenclaw);
   } else if (settings.filterBy === "slytherin") {
-    filteredList = allStudents.filter(isSlytherin);
+    filteredList = filterAllStudents.filter(isSlytherin);
   } else if (settings.filterBy === "prefect") {
-    filteredList = allStudents.filter(isPrefect);
+    filteredList = filterAllStudents.filter(isPrefect);
   } else if (settings.filterBy === "squad") {
-    filteredList = allStudents.filter(isSquad);
+    filteredList = filterAllStudents.filter(isSquad);
   } else if (settings.filterBy === "Pure_blood") {
-    filteredList = allStudents.filter(isPureBlood);
+    filteredList = filterAllStudents.filter(isPureBlood);
   } else if (settings.filterBy === "Half_blood") {
-    filteredList = allStudents.filter(isHalfBlood);
+    filteredList = filterAllStudents.filter(isHalfBlood);
   } else if (settings.filterBy === "Muggle_born") {
-    filteredList = allStudents.filter(isMuggleBorn);
+    filteredList = filterAllStudents.filter(isMuggleBorn);
   }
 
   return filteredList;
 }
 function isPureBlood(student) {
-  return student.bloodStatus === "Pure-blood";
+  return student.bloodStatus === "Pure Blood";
 }
 
 function isHalfBlood(student) {
-  return student.bloodStatus === "Half-blood";
+  return student.bloodStatus === "Half Blood";
 }
 function isMuggleBorn(student) {
-  return student.bloodStatus === "Muggle-born";
+  return student.bloodStatus === "Muggle Born";
 }
 function isGryffindor(student) {
   return student.house === "Gryffindor";
@@ -325,44 +331,29 @@ function displayList(students) {
   students.forEach(displayStudent);
 
   // Show number of students
-  document.querySelector(".number_of_students").textContent = ` ${students.length}`;
+  const numberStudents = students.length;
+  document.querySelector(".number_of_students").textContent = ` ${numberStudents}`;
 
   // show number of expelled students
-  let numberOfExpelled = 34 - students.length;
-  document.querySelector(".number_expelled").textContent = ` ${numberOfExpelled}`;
+  const numberExpelled = allStudents.filter((student) => student.expelled === true).length;
+  document.querySelector(".number_expelled").textContent = ` ${numberExpelled}`;
 
   //show number of not expelled students
-  let numberOfNotExpelled = 34 - numberOfExpelled;
+  let numberOfNotExpelled = 34 - numberExpelled;
   document.querySelector(".number_not_expelled").textContent = ` ${numberOfNotExpelled}`;
 
   //number of each house
-  //number_gryffindor
+  const numberGryffindor = allStudents.filter((student) => student.house === "Gryffindor").length;
+  document.querySelector(".number_gryffindor").textContent = ` ${numberGryffindor}`;
 
-  //let  numberGryffindor = students.filter((student) => student.house === selectedStudent.house);
+  const numberHuffelpuff = allStudents.filter((student) => student.house === "Hufflepuff").length;
+  document.querySelector(".number_huffelpuff").textContent = ` ${numberHuffelpuff}`;
 
-  //   let houseName = {
-  //     gryffindorHouse: student.house === "Gryffindor",
-  //     slytherinrHouse: student.house === "Slytherin",
-  //     huffelpuffrHouse: student.house === "Huffelpuff",
-  //     ravenclawHouse: student.house === "Ravenclaw",
-  //   };
+  const numberRavenclaw = allStudents.filter((student) => student.house === "Ravenclaw").length;
+  document.querySelector(".number_ravenclaw").textContent = ` ${numberRavenclaw}`;
 
-  //   let gryffindorHouse = students.length;
-  //   document.querySelector(".number_gryffindor").textContent = ` ${gryffindorHouse}`;
-
-  //let houseGryffindor =
-  //student.house === "Gryffindor";
-  // let houseName = document.querySelector("[data-field=house]")
-  //   if ((student.house = "gryffindor")) {
-  //     document.querySelector(".number_gryffindor").textContent = ` ${students.length}`;
-  //   }
-  /*   let numberGryffindor = settings.filterBy === "gryffindor";
-  if (settings.filterBy === "gryffindor") {
-    document.querySelector(".number_gryffindor").textContent = ` ${numberGryffindor.length}`;
-  } else if (settings.filterBy === "hufflepuff") {
-  } else if (settings.filterBy === "ravenclaw") {
-  } else if (settings.filterBy === "slytherin") {
-  } */
+  const numberSlytherin = allStudents.filter((student) => student.house === "Slytherin").length;
+  document.querySelector(".number_slytherin").textContent = ` ${numberSlytherin}`;
 }
 function displayStudent(student) {
   console.log("display students");
@@ -408,7 +399,7 @@ function displayStudent(student) {
 
   // - - Toggle squad true or false on click
   function clickSquad() {
-    if (student.house === "Slytherin" || student.bloodStatus === "Pure-blood") {
+    if (student.house === "Slytherin" || student.bloodStatus === "Pure Blood") {
       student.squad = !student.squad;
     } else {
       notBeSquad();
@@ -582,4 +573,70 @@ function closeDetails() {
   popup.classList.remove("active");
   blured.classList.remove("active");
   document.querySelector("header").classList.remove("blurr");
+}
+
+// Hacking the system
+
+function hackTheSystem() {
+  hackingTheSystem = true;
+  document.querySelector(".hogwarts_logo").removeEventListener("click", hackTheSystem);
+  console.log("The system is hacked", hackingTheSystem);
+
+  injectMyself();
+
+  hackedBloodStatus();
+
+  hackedSquad();
+}
+
+function injectMyself() {
+  console.log("inject Myself");
+  const myInfo = {
+    firstName: "Katrín",
+    lastName: "María",
+    middleName: "Magnúsdóttir",
+    nickName: "Dobby",
+    imageName: "./img/dobby.png",
+    house: "Gryffindor",
+    bloodStatus: "Muggle Born",
+    expelled: false,
+    prefect: false,
+    squad: false,
+  };
+  allStudents.push(myInfo);
+  buildList();
+}
+
+function hackedBloodStatus() {
+  allStudents.forEach((student) => {
+    let hackedBloodStudent = student.bloodStatus;
+    // half- and muggle bloods will be listed as pure-blood.
+    if (hackedBloodStudent === "Half Blood" || hackedBloodStudent === "Muggle Born") {
+      hackedBloodStudent = "Pure-blood";
+    } else {
+      // Former pure-bloods will get completely random blood-status
+      hackedBloodStudent = Math.floor(Math.random() * 2);
+      if (student.bloodStatus == 0) {
+        student.bloodStatus = "Pure Blood";
+      } else if (student.bloodStatus == 1) {
+        student.bloodStatus = "Muggle Born";
+      } else {
+        student.bloodStatus = "Half Blood";
+      }
+    }
+  });
+}
+
+function hackedSquad() {
+  console.log("Limited time on squad");
+  allStudents.forEach((student) => {
+    if (student.squad === true) {
+      console.log("student is squad");
+      setTimeout(() => {
+        student.squad = false;
+        buildList();
+        //10 sec
+      }, 10000);
+    }
+  });
 }

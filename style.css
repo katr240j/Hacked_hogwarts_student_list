@@ -76,6 +76,7 @@ header {
   width: 200px;
   margin-left: 4rem;
   padding-top: 1rem;
+  cursor: pointer;
 }
 
 /* displaying numbers */
@@ -194,6 +195,10 @@ button.filter {
   margin-top: 2rem;
   margin-left: 16rem;
 }
+#students img .imageName [data-field="imageName"] [src="./img/dobby.png"] {
+  opacity: 0.5;
+}
+
 .prefect {
   border: none;
   background-image: url("./styling_img/prefect.png");
