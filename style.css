@@ -1,0 +1,429 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+/* Type */
+p,
+h1,
+h2,
+h3 {
+  color: #161517;
+}
+p {
+  font-size: 1rem;
+  font-family: "Cormorant Upright", serif;
+}
+h1,
+h2,
+h3 {
+  font-family: "Charm", cursive;
+}
+/* page setup */
+#page {
+  background: rgb(236, 227, 211);
+  background: linear-gradient(180deg, rgba(236, 227, 211, 1) 45%, rgba(236, 227, 211, 0) 100%);
+  z-index: -1;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+#left {
+  margin-top: 1rem;
+  position: fixed;
+  overflow: hidden;
+  z-index: 1;
+  grid-column-start: 1;
+}
+
+#right {
+  z-index: 1;
+  margin-top: 12rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  grid-column-start: 2;
+}
+
+.background_right {
+  position: fixed;
+  z-index: -1;
+  left: 29rem;
+  width: 53rem;
+}
+/* page setup finish */
+/* header */
+header {
+  background: rgb(236, 227, 211);
+  background: linear-gradient(180deg, rgba(236, 227, 211, 1) 55%, rgba(236, 227, 211, 0) 100%);
+  position: fixed;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+.header_back {
+  width: 53rem;
+  position: absolute;
+  left: 29rem;
+  z-index: -1;
+}
+
+.title {
+  margin-top: 3rem;
+  margin-left: 6rem;
+}
+.hogwarts_logo {
+  width: 200px;
+  margin-left: 4rem;
+  padding-top: 1rem;
+}
+
+/* displaying numbers */
+#container {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  margin-right: 6rem;
+}
+
+.box {
+  background-color: transparent;
+  text-align: center;
+}
+.box h2 {
+  font-family: "Cormorant Upright", serif;
+  font-size: 2rem;
+}
+.box h3 {
+  font-family: "Cormorant Upright", serif;
+  font-size: 1rem;
+}
+
+/* header finish */
+
+/* filters/sort (on the left side)*/
+
+#nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  margin-left: 2rem;
+  gap: 2rem;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0.5em;
+  margin-top: 13rem;
+}
+button.filter {
+  width: 7rem;
+  height: 2.5rem;
+  cursor: pointer;
+  background-color: transparent;
+  color: #161517;
+  border: 1px solid #161517;
+  font-family: "Cormorant Upright", serif;
+  text-transform: uppercase;
+}
+
+.filters p {
+  grid-area: 1/1/2/3;
+  text-align: center;
+  background-color: transparent;
+  color: #161517;
+  font-family: "Cormorant Upright", serif;
+  font-size: 2rem;
+  width: 16.5rem;
+  height: 2.5rem;
+}
+
+.sorting_and_searching {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 1fr;
+  gap: 1em;
+}
+.sort {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1em;
+}
+.sort p {
+  grid-area: 1 / 1 / 2 / 3;
+  text-align: center;
+  background-color: transparent;
+  font-family: "Cormorant Upright", serif;
+  font-size: 2rem;
+  width: 16.5rem;
+  height: 2.5rem;
+}
+
+.sort .bysort[data-sort-direction="desc"]::after {
+  content: " ↓";
+}
+.sort .bysort[data-sort-direction="asc"]::after {
+  content: " ↑";
+}
+
+.search {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1rem;
+}
+
+#search {
+  background-color: transparent;
+  border: 1px solid #161517;
+  padding: 10px;
+  height: 2rem;
+}
+/* filters/sort finish */
+/* Students overview */
+#students {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 20px;
+  text-align: center;
+  margin: 10rem;
+  margin-top: 2rem;
+  margin-left: 16rem;
+}
+.prefect {
+  border: none;
+  background-image: url("./styling_img/prefect.png");
+  width: 50px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.prefect:hover {
+  opacity: 1;
+  filter: none;
+}
+
+.squad {
+  border: none;
+  background-image: url("./styling_img/squad.png");
+  width: 50px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.squad:hover {
+  opacity: 1;
+  filter: none;
+}
+
+.expell {
+  border: none;
+  background-image: url("./styling_img/expell.png");
+  width: 50px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.expell:hover {
+  opacity: 1;
+  filter: none;
+}
+
+.gray {
+  opacity: 0.6;
+  filter: grayscale(1);
+}
+
+/* Students overview finish */
+/* Students info */
+.info_student {
+  width: 300px;
+  height: 230px;
+  margin: 0 auto;
+  border: 3px solid black;
+  cursor: pointer;
+  background-color: transparent;
+  padding-top: 2rem;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+.house_text {
+  text-align: right;
+}
+.name_text {
+  text-align: left;
+}
+.imageName {
+  margin-left: 8rem;
+  margin-top: -4rem;
+  border-radius: 23px;
+}
+/* Students info */
+
+/* Modal / dialog box */
+
+.hide {
+  visibility: hidden;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(105, 20, 20, 0.582);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.dialog {
+  box-shadow: 10px 20px 50px rgb(0 0 0);
+  /* border-radius: 10px; */
+  padding: 2em;
+  background: #da5a11;
+  position: relative;
+  color: #161517;
+  width: 19rem;
+}
+
+.remove_prefect_button {
+  gap: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.remove_prefect_button button {
+  width: 7.5rem;
+  height: 3.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  background-color: transparent;
+  color: #161517;
+  border: 1px solid #161517;
+  font-family: "Cormorant Upright", serif;
+  text-transform: uppercase;
+}
+
+.remove_prefect_button button:hover {
+  background-color: rgb(236, 227, 211);
+}
+
+.close_dialog {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+  background-color: transparent;
+  color: #161517;
+  border: none;
+  cursor: pointer;
+}
+/* Modal / dialog box finish */
+/* Pop-up & details */
+
+#popup .imageName {
+  border-radius: 23px;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+#popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transition: 200ms ease-in-out;
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  width: 500px;
+  max-width: 80%;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+#popup.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#close {
+  cursor: pointer;
+  font-weight: bold;
+  float: right;
+  margin: 1rem;
+  font-size: 2rem;
+  border: none;
+  color: #161517;
+  background-color: transparent;
+}
+
+.house_crest {
+  width: 16rem;
+  height: 16rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -5;
+  position: absolute;
+  left: 15rem;
+  top: -1rem;
+  opacity: 0.4;
+}
+.text_info {
+  padding: 0.3rem;
+  font-family: "Cormorant Upright", serif;
+  font-weight: bold;
+}
+.main_info {
+  width: 13rem;
+  float: left;
+}
+.extra_info {
+  text-align: right;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  width: 13rem;
+  float: right;
+  margin-top: 14rem;
+  margin-right: -2rem;
+}
+
+#blured {
+  position: fixed;
+  opacity: 0;
+  transition: 180ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(68, 67, 67, 0.815);
+  pointer-events: none;
+}
+.blurr {
+  z-index: 1;
+}
+
+#blured.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Pop-up & details finish */
