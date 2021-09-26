@@ -434,7 +434,7 @@ function displayStudent(student) {
 
   // // Toggle expell true or false on click
   function clickExpell() {
-    if (student.firstName === "Katrín") {
+    if (student.firstName === "Katrín" || student.firstName === "Victoria") {
       student.expelled = false;
       cantExpell();
     } else {
@@ -594,7 +594,7 @@ function timeToHackTheSystem() {
     hackTheSystem();
     //10min = 600000
     //1min = 60000
-  }, 60000);
+  }, 600000);
 }
 function hackTheSystem() {
   hackingTheSystem = true;
@@ -603,7 +603,7 @@ function hackTheSystem() {
 
   hackingTheStyling();
 
-  injectMyself();
+  injectUs();
 
   hackedBloodStatus();
 
@@ -675,9 +675,9 @@ function stopGlitch() {
   document.querySelector("#glitchbox").classList.add("hide");
 }
 
-function injectMyself() {
-  console.log("inject Myself");
-  const myInfo = {
+function injectUs() {
+  console.log("inject Us");
+  const katInfo = {
     firstName: "Katrín",
     lastName: "Magnúsdóttir",
     middleName: "María",
@@ -689,7 +689,19 @@ function injectMyself() {
     prefect: false,
     squad: false,
   };
-  allStudents.push(myInfo);
+  const vicInfo = {
+    firstName: "Victoria",
+    lastName: "Madsen",
+    middleName: "Løkke",
+    nickName: "Vic",
+    imageName: "./img/dobby.png",
+    house: "Slytherin",
+    bloodStatus: "Pure Born",
+    expelled: false,
+    prefect: false,
+    squad: false,
+  };
+  allStudents.push(katInfo, vicInfo);
   buildList();
 }
 
